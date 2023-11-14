@@ -1,4 +1,4 @@
-import ShowContext, { Episode } from '@/contexts/ShowContext';
+import ShowContext, { Episode } from '../../contexts/ShowContext';
 import { useContext, useState } from 'react';
 import './LeftMenu.scss';
 

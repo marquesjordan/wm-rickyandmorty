@@ -1,4 +1,4 @@
-import ShowContext, { Character } from '@/contexts/ShowContext';
+import ShowContext, { Character } from '../../contexts/ShowContext';
 import { useContext } from 'react';
 import './Characters.scss';
 

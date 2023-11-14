@@ -1,5 +1,5 @@
 import { createContext, Dispatch, useReducer, ReactNode } from 'react';
-import { showReducer } from '@/reducers/showReducer';
+import { showReducer } from '../reducers/showReducer';
 
 export interface Info {
   count: number;
