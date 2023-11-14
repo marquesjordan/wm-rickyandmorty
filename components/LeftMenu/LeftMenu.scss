@@ -1,0 +1,64 @@
+.left-menu {
+  border: 1px solid;
+  border-radius: 12px;
+  padding: 8px;
+  margin-top: 20px;
+  max-height: 80%;
+  width: 100%;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+
+  @media (max-width: 640px) {
+    max-height: 90%;
+  }
+}
+
+.links {
+  flex: 1;
+  overflow-y: scroll;
+}
+
+ul {
+  height: 100%;
+}
+
+li {
+  border: 1px solid;
+  border-radius: 8px;
+  margin: 5px 0 5px;
+  padding: 2px 5px;
+}
+
+li.selected {
+  border-color: blue;
+  color: blue;
+  font-weight: bold;
+  border: 3px solid blue;
+}
+
+li.selected div {
+  color: blue !important;
+}
+
+li:hover {
+  border-color: blue;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+li.more {
+  background: blue;
+}
+
+li.more:hover {
+  background: lightblue;
+}
+
+.sidebar {
+  width: 16rem;
+
+  @media (max-width: 400px) {
+    width: 12rem;
+  }
+}
