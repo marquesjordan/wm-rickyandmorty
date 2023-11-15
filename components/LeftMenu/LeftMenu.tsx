@@ -5,7 +5,7 @@ import './LeftMenu.scss';
 interface LeftMenuProps {
   episodes: Episode[];
   addMoreEpisodes: (page: number) => Promise<void>;
-  onEpisodeSelect: (chars: string[]) => Promise<void>;
+  onEpisodeSelect: (chars: string[], title: string) => Promise<void>;
   handleFetchCharacters: (page: number) => Promise<void>;
 }
 
@@ -18,10 +18,14 @@ const LeftMenu = ({
   const { state } = useContext(ShowContext)!;
   const [selectedId, setSelectedId] = useState<number | null>();
 
-  const handleSelectEpisode = (id: number, episodeCharacters: string[]) => {
+  const handleSelectEpisode = (
+    id: number,
+    title: string,
+    episodeCharacters: string[],
+  ) => {
     if (id !== selectedId) {
       setSelectedId(id);
-      onEpisodeSelect(episodeCharacters);
+      onEpisodeSelect(episodeCharacters, title);
     } else {
       setSelectedId(null);
       handleFetchCharacters(1);
@@ -41,7 +45,9 @@ const LeftMenu = ({
               episodes.length &&
               episodes.map((item, index) => (
                 <li
-                  onClick={() => handleSelectEpisode(item.id, item.characters)}
+                  onClick={() =>
+                    handleSelectEpisode(item.id, item.name, item.characters)
+                  }
                   key={item.id}
                   className={`${selectedId === item.id ? 'selected' : ''}`}>
                   <div className="hover:text-gray-300">{item.name}</div>

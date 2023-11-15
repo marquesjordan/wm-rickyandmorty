@@ -11,9 +11,11 @@ export default function Home() {
   const [selectedCharacter, setSelectedCharacter] = useState<Character | null>(
     null,
   );
+  const [selectedEpisode, setSelectedEpisode] = useState<string | null>(null);
 
   const handleFetchCharacters = async (page: number) => {
     try {
+      setSelectedEpisode(null);
       const response = await fetchData('character', page);
 
       dispatch({ type: 'SET_CHARACTERS', payload: response });
@@ -31,11 +33,12 @@ export default function Home() {
     }
   };
 
-  const onEpisodeSelect = async (chars: string[]) => {
+  const onEpisodeSelect = async (chars: string[], title: string) => {
     try {
       const charIds = chars.map((item) => {
         return Number(item.slice(-1));
       });
+      setSelectedEpisode(title);
 
       const response = await fetchMultiData('character', charIds);
       dispatch({ type: 'UPDATE_CHARACTERS', payload: response });
@@ -51,7 +54,7 @@ export default function Home() {
       const response = await fetchData('character', nextPageId);
       dispatch({ type: 'ADD_CHARACTERS', payload: response });
     } catch (error) {
-      console.error('onEpisodeSelect Broke: ', error);
+      console.error('onAddMoreCharacters Broke: ', error);
     }
   };
 
@@ -69,7 +72,7 @@ export default function Home() {
   }, []);
 
   return (
-    <main className="h-screen">
+    <main style={{ height: '96vh' }}>
       <div className="main-wrapper">
         <LeftMenu
           addMoreEpisodes={handleFetchEpisodes}
@@ -81,6 +84,7 @@ export default function Home() {
           onAddMoreCharacters={onAddMoreCharacters}
           characters={state.characters}
           onCharacterSelect={handleCharacterSelect}
+          episodeTitle={selectedEpisode}
         />
       </div>
       {selectedCharacter && (

@@ -79,9 +79,10 @@ describe('LeftMenu component', () => {
     fireEvent.click(episodeName);
 
     await waitFor(() => {
-      expect(mockOnEpisodeSelect).toHaveBeenCalledWith([
-        'https://api.wm.com/character/1',
-      ]);
+      expect(mockOnEpisodeSelect).toHaveBeenCalledWith(
+        ['https://api.wm.com/character/1'],
+        'Episode 1',
+      );
     });
 
     fireEvent.click(episodeName);
