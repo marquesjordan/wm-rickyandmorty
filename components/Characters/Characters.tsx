@@ -1,13 +1,18 @@
-import ShowContext, { Character } from '../../contexts/ShowContext';
 import { useContext } from 'react';
+import ShowContext, { Character } from '../../contexts/ShowContext';
 import './Characters.scss';
 
 interface CharacterProps {
   characters: Character[];
   onAddMoreCharacters: (nextPage: string) => Promise<void>;
+  onCharacterSelect: (character: Character) => void;
 }
 
-const Characters = ({ characters, onAddMoreCharacters }: CharacterProps) => {
+const Characters = ({
+  characters,
+  onAddMoreCharacters,
+  onCharacterSelect,
+}: CharacterProps) => {
   const { state } = useContext(ShowContext)!;
 
   const handleLoadMoreCharacters = () => {
@@ -27,6 +32,7 @@ const Characters = ({ characters, onAddMoreCharacters }: CharacterProps) => {
               src={item.image}
               alt="Thumbnail 1"
               className="thumbnail"
+              onClick={() => onCharacterSelect(item)}
             />
           ))}
       </div>

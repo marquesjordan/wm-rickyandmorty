@@ -1,12 +1,16 @@
+import CharacterModal from '@/components/CharacterModal/CharacterModal';
 import Characters from '@/components/Characters/Characters';
 import LeftMenu from '@/components/LeftMenu/LeftMenu';
-import ShowContext from '@/contexts/ShowContext';
+import ShowContext, { Character } from '@/contexts/ShowContext';
 import { fetchData, fetchMultiData } from '@/utils/api';
-import { useContext, useEffect } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import './home.scss';
 
 export default function Home() {
   const { state, dispatch } = useContext(ShowContext)!;
+  const [selectedCharacter, setSelectedCharacter] = useState<Character | null>(
+    null,
+  );
 
   const handleFetchCharacters = async (page: number) => {
     try {
@@ -51,6 +55,14 @@ export default function Home() {
     }
   };
 
+  const handleModalClose = () => {
+    setSelectedCharacter(null);
+  };
+
+  const handleCharacterSelect = (character: Character) => {
+    setSelectedCharacter(character);
+  };
+
   useEffect(() => {
     handleFetchCharacters(1);
     handleFetchEpisodes(1);
@@ -68,8 +80,15 @@ export default function Home() {
         <Characters
           onAddMoreCharacters={onAddMoreCharacters}
           characters={state.characters}
+          onCharacterSelect={handleCharacterSelect}
         />
       </div>
+      {selectedCharacter && (
+        <CharacterModal
+          character={selectedCharacter}
+          onClose={handleModalClose}
+        />
+      )}
     </main>
   );
 }
